@@ -1,4 +1,5 @@
 from flask import Flask, escape, request
+from .stockParser import parse_stock
 
 app = Flask(__name__)
 
@@ -8,9 +9,11 @@ def test():
     return "Hello World"
 
 
-@app.route('/task', methods=['GET'])
+@app.route('/stock', methods=['GET'])
 def analyze_log():
-    return "task"
+    stock_id = request.args.get("stockid", "error")
+    data = parse_stock(stock_id)
+    return data
 
 
 def start_server():
