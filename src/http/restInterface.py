@@ -1,7 +1,12 @@
 from flask import Flask, escape, request
 from .stockParser import parse_stock
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path="/static")
+
+
+@app.route('/', methods=['GET'])
+def index():
+    return app.send_static_file('index.html')
 
 
 @app.route('/test', methods=['GET'])
